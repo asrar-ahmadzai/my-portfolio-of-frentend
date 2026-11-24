@@ -1,0 +1,5 @@
+export const contactPhone = "+93773265564"
+export const whatsappUrl = "https://wa.me/93773265564?text=Hello%20Asrar%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+export const contactEmail = "asrarkamal1122@gmial.com"
+export const facebookUrl = "https://www.facebook.com/share/19xtsX7XNS/"
+export const linkedinUrl = "https://www.linkedin.com/in/mr-asrar-844a40378/"
