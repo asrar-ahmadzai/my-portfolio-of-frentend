@@ -5,10 +5,30 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowDown, ArrowRight, ArrowUpRight, Asterisk, Code2, Layers3, Sparkles } from "lucide-react"
 import styles from "./portfolio.module.css"
-import { projects } from "./projects"
 import { portfolioHome } from "./config"
 import { contactEmail, whatsappUrl } from "./contact"
 import { PortfolioAtmosphere } from "./atmosphere"
+
+const animationLoops = [
+  { number: "01", name: "Orbit", type: "CELESTIAL MOTION", style: "orbit" },
+  { number: "02", name: "Gradient bloom", type: "COLOR STUDY", style: "bloom" },
+  { number: "03", name: "Soft bounce", type: "PLAYFUL MOTION", style: "bounce" },
+  { number: "04", name: "Ripple", type: "LIQUID MOTION", style: "ripple" },
+  { number: "05", name: "Equalizer", type: "RHYTHM STUDY", style: "equalizer" },
+  { number: "06", name: "Floating prism", type: "3D MOTION", style: "prism" },
+  { number: "07", name: "Typing", type: "UI MICRO-INTERACTION", style: "typing" },
+  { number: "08", name: "Waveform", type: "FLOW STUDY", style: "wave" },
+  { number: "09", name: "Spark burst", type: "ENERGY STUDY", style: "spark" },
+  { number: "10", name: "Portal", type: "LOOP STUDY", style: "portal" },
+] as const
+
+function AnimationPreview({ style }: { style: (typeof animationLoops)[number]["style"] }) {
+  return (
+    <div className={styles.animationStage} data-animation={style} aria-hidden="true">
+      <i /><i /><i /><span />
+    </div>
+  )
+}
 
 export default function PortfolioPage() {
   const [motionReady, setMotionReady] = useState(false)
@@ -90,34 +110,20 @@ export default function PortfolioPage() {
 
         <section className={styles.workSection} id="work" data-reveal>
           <div className={styles.sectionHeading}>
-            <div><span className={styles.sectionEyebrow}>SELECTED WORK · 2026</span><h2>Good ideas,<br /><em>made real.</em></h2></div>
-            <p>A selection of frontend projects and design work, from early learning experiments to interfaces built for real product workflows.</p>
+            <div><span className={styles.sectionEyebrow}>ANIMATION GALLERY · 10 LOOPS</span><h2>A little more<br /><em>in motion.</em></h2></div>
+            <p>Ten original CSS animations, made to bring color, rhythm, and a little life to the screen.</p>
           </div>
-          <div className={styles.projectGrid}>
-            {projects.map((project) => (
-              <article key={project.number} className={`${styles.projectCard} ${project.category === "Design" ? styles.dashboardProject : styles.hotelProject}`} data-reveal>
-                <div className={`${styles.projectPreview} ${styles.projectMediaFrame}`}>
-                  {project.mediaType === "video" ? (
-                    <video className={styles.projectMedia} controls preload="metadata" playsInline aria-label={`${project.title} project video`}>
-                      <source src={project.media} type="video/mp4" />
-                      Your browser does not support embedded videos.
-                    </video>
-                  ) : (
-                    <Image src={project.media} alt={project.imageAlt ?? project.title} fill sizes="(max-width: 760px) 90vw, 540px" className={styles.projectMedia} />
-                  )}
-                  <span className={styles.previewIndex}>{project.number}</span>
-                </div>
-                <div className={styles.projectMeta}>
-                  <span className={styles.projectType}>{project.type}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className={styles.tagRow}>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                  <Link className={styles.projectDetailsLink} href={`${portfolioHome}/projects/${project.slug}`}>Explore this project <ArrowUpRight size={14} /></Link>
+          <div className={styles.animationGrid}>
+            {animationLoops.map((animation) => (
+              <article key={animation.number} className={styles.animationCard} data-reveal>
+                <AnimationPreview style={animation.style} />
+                <div className={styles.animationMeta}>
+                  <span>{animation.number} / {animation.type}</span>
+                  <h3>{animation.name}</h3>
                 </div>
               </article>
             ))}
           </div>
-          <div className={styles.workArchiveLink}><Link className={styles.ghostButton} href={`${portfolioHome}/projects`}>Browse all projects <ArrowRight size={15} /></Link></div>
         </section>
 
         <section className={styles.labTeaser}>
